@@ -13,3 +13,6 @@ Social news voting site built on the Google Apps Engine
 * [How to Issue Pull Requests](https://help.github.com/articles/using-pull-requests)
 * [Git Markdown Guide](http://daringfireball.net/projects/markdown/syntax)
 * [Git Markdown Quick Reference](http://nestacms.com/docs/creating-content/markdown-cheat-sheet)
+
+## Contributors
+* Chad Wyszynski
