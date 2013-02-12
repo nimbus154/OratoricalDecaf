@@ -17,3 +17,4 @@ Social news voting site built on the Google Apps Engine
 ## Contributors
 * Chad Wyszynski
 * Jeremy Chavez
+* Joseph Blessum
