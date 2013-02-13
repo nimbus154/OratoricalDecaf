@@ -19,3 +19,4 @@ Social news voting site built on the Google Apps Engine
 * Jeremy Chavez
 * Joseph Blessum
 * Kurtis Schlepp
+* Robert Cabral
