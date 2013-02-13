@@ -18,3 +18,4 @@ Social news voting site built on the Google Apps Engine
 * Chad Wyszynski
 * Jeremy Chavez
 * Joseph Blessum
+* Kurtis Schlepp
