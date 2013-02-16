@@ -13,7 +13,8 @@ class Articles(db.Model):
 	link = db.StringProperty()
 	text = db.StringProperty()
 	votes = int
-	posted = db.DateProperty()
+	posted = db.DateTimeProperty()
+	owner = db.StringProperty()
 
 class Votes(db.Model):
 	user = db.EmailProperty()
@@ -23,7 +24,7 @@ class Comments(db.Model):
 	article_id = int
 	comment_owner = db.EmailProperty()
 	comment_text = db.Text()
-	posted = db.DateProperty()
+	posted = db.DateTimeProperty()
 
 '''
 	DATASTORE FUNCTIONS
@@ -85,7 +86,7 @@ def Create_User(username,password):
 		required:
 			None
 '''
-def Post_Article(link,text):
+def Post_Article(link,text,owner):
 	article_info = Articles()
 
 	#set the article data
@@ -93,7 +94,7 @@ def Post_Article(link,text):
 	article_info.text = text
 	article_info.votes = 0
 	article_info.posted = datetime.datetime.now()
-
+	article_info.owner = owner
 	#store it!
 	article_info.put()
 
@@ -163,4 +164,3 @@ def Vote_Article(username,article_id,vote):
 	elif vote == '-1':
 		if article_add_votes.votes >0:
 			article_add_votes.votes = article_add_votes.votes -1
-
