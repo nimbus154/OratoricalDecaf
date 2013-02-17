@@ -5,6 +5,7 @@ import webapp2
 from google.appengine.api import users
 import datastore
 import simplejson as json
+import logging
 
 class RequestHandler(webapp2.RequestHandler):
 
@@ -20,11 +21,15 @@ class RequestHandler(webapp2.RequestHandler):
         if(user):
             vote = self.extract_vote(self.request.body)
             if(self.is_valid_vote(vote)):
-                votes = datastore.vote_article(user.email, article_id, 
+                votes = datastore.vote_article(user.email, 
+                                                           article_id, 
                                         RequestHandler.vote_types[vote["vote"]])
                 self.response.headers["Content-Type"] = "application/json"
-                self.response.write({"votes": votes})
+                self.response.write(json.dumps({"article": article_id, 
+                                                "votes": votes}))
             else:
+                logging.debug(vote)
+                print(vote)
                 self.error(400) # bad request, no vote needs to be up or down
                 self.response.write('Request must be {"vote": "up/down"}')
         else:
@@ -45,5 +50,5 @@ class RequestHandler(webapp2.RequestHandler):
             try:
                 return json.loads(self.request.body)
             except json.JSONDecodeError: # unable to parse json
-                return {}
+                return {"no": "deserialize"}
 
