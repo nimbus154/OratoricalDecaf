@@ -1,6 +1,7 @@
 import webapp2
 import datastore
 import vote
+import articles
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -9,6 +10,7 @@ class MainHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
                     ('/', MainHandler),
-                    ('/vote/(.*)', vote.RequestHandler)
+                    ('/vote/(.*)', vote.RequestHandler),
+                    ('/article/(.*)', articles.PostPage)
                 ], 
                 debug=True)
