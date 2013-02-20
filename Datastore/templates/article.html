@@ -1,0 +1,9 @@
+<div class="article">
+    {% include 'vote.html' with context %}
+    <span class="article-title">
+        <a href="{{article.link}}">{{article.text}}</a>
+    </span>
+    <span class="comment">
+        <a href="/comment/{{article.id}}">Comments</a>
+    </span>
+</div>

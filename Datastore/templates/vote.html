@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="/css/style.css" />
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="/js/vote.js"></script>
-    </head>
-    <body>
-        <div id="article${article_id}" class="vote">
-            <a class="up" href="/vote/${article_id}"><img src="/img/up.png"/></a>
-            <span class="vote-count">100</span>
-            <a class="down" href="/vote/${article_id}"><img src="/img/down.png"/></a>
-        </div>
-    </body>
-</html>
+<div id="article{{article.id}}" class="vote">
+    <a class="up" href="/vote/{{article.id}}">
+        <img src="/img/up.png"/>
+    </a>
+    <span class="count">100</span>
+    <a class="down" href="/vote/{{article.id}}">
+        <img src="/img/down.png"/>
+    </a>
+</div>

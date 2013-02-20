@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        {% block scripts %}
+        {% endblock %}
+        <link rel="stylesheet" href="/css/style.css" />
+        <title>{% block title %}{% endblock %}</title>
+        {% endblock %}
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+            <footer>
+                {% block footer %}
+                {% endblock %}
+            </footer>
+        </div>
+    </body>
+</html>
