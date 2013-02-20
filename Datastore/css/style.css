@@ -1,10 +1,46 @@
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #00ABA9;
+}
+
+.article {
+    display: inline;
+    position: absolute;
+    top: 0;
+    margin-left: 20px;
+}
+
+.article-title {
+    font-size: 2em;
+}
+
+.article-widget {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+body {
+    background: url("/img/maze_white.png")
+}
+
+.comment {
+    display: block;
+}
+
 .vote {
     display: inline-block;
     text-align: center;
     font-size: 2em;
-    font-family: Helvetica Arial sans-serif;
 }
 
 .vote a {
     display: block;
+}
+
+#wrapper {
+    font-family: Helvetica, Arial, sans-serif;
 }

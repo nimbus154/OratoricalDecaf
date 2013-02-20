@@ -13,7 +13,7 @@ app.vote = function(articleId, vote) {
     $.post("/vote/" + articleId, '{"vote": "' + vote +'"}')
         .done(function(data){ // success callback
             // find article count element
-            var voteCount = $("#article" + data.article + " .vote-count");
+            var voteCount = $("#" + data.article + " .vote-count");
             // set new vote count
             voteCount.text(data.votes);
         });
