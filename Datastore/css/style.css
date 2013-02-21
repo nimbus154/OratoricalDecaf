@@ -32,23 +32,23 @@ body {
 }
 
 .down {
-    background: url("/img/arrows.png") no-repeat 18px -110px;
+    background: url("/img/arrows.png") no-repeat 17px -110px;
     width: 50px;
     height: 35px
 }
 
 .down:hover {
-    background: url("/img/arrows.png") no-repeat 18px -74px;
+    background-position: 17px -74px;
 }
 
 .up {
-    background: url("/img/arrows.png") no-repeat 18px 12px;
+    background: url("/img/arrows.png") no-repeat 17px 12px;
     width: 50px;
     height: 35px
 }
 
 .up:hover {
-    background: url("/img/arrows.png") no-repeat 18px -27px;
+    background-position: 17px -27px;
 }
 
 .vote {
