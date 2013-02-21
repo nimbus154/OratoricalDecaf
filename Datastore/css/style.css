@@ -10,7 +10,7 @@ a:hover {
 .article {
     display: inline;
     position: absolute;
-    top: 0;
+    top: 25px;
     margin-left: 20px;
 }
 
@@ -54,7 +54,7 @@ body {
 .vote {
     display: inline-block;
     text-align: center;
-    font-size: 2em;
+    font-size: 1.6em;
 }
 
 .vote a {
