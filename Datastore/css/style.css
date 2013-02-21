@@ -31,6 +31,26 @@ body {
     display: block;
 }
 
+.down {
+    background: url("/img/arrows.png") no-repeat 18px -110px;
+    width: 50px;
+    height: 35px
+}
+
+.down:hover {
+    background: url("/img/arrows.png") no-repeat 18px -74px;
+}
+
+.up {
+    background: url("/img/arrows.png") no-repeat 18px 12px;
+    width: 50px;
+    height: 35px
+}
+
+.up:hover {
+    background: url("/img/arrows.png") no-repeat 18px -27px;
+}
+
 .vote {
     display: inline-block;
     text-align: center;
