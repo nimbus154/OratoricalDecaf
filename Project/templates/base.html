@@ -12,8 +12,13 @@
     <body>
         <div id="wrapper">
             <nav>
-                {% block nav %}
-                {% endblock %}
+            {% block nav %}
+                {% if user %}
+                    {% include 'logged_in_nav.html' %}
+                {% else %}
+                    {% include 'not_logged_in_nav.html' %}
+                {% endif %}
+            {% endblock %}
             </nav>
             <div id="content">
                 {% block content %}
