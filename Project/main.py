@@ -17,7 +17,7 @@ class MainHandler(webapp2.RequestHandler):
         self.response.write(template.render(
             {
                 "title": config.main_title, 
-                "data": articles, 
+                "articles": articles, 
                 "user": users.get_current_user()
             }))
 

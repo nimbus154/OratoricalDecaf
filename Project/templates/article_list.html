@@ -5,7 +5,7 @@
 {% endblock %}
 {% block head %}{{ super() }}{% endblock %}
 {% block content %}
-    {% for article in data %}
+    {% for article in articles %}
         {% include 'article.html' %}
     {% endfor %}
 {% endblock %}
