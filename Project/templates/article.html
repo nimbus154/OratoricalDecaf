@@ -1,0 +1,11 @@
+<div class="article-widget">
+    {% include 'vote.html' with context %}
+    <div class="article">
+        <span class="article-title">
+            <a href="{{article.1}}" target="_blank">{{article.2}}</a>
+        </span>
+        <span class="comment">
+            <a href="/comment/{{article.0}}">Comments</a>
+        </span>
+    </div>
+</div>

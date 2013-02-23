@@ -1,0 +1,66 @@
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #FA6800;
+}
+
+.article {
+    display: inline;
+    position: absolute;
+    top: 25px;
+    margin-left: 20px;
+}
+
+.article-title {
+    font-size: 2em;
+}
+
+.article-widget {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+body {
+    background: url("/img/maze_white.png")
+}
+
+.comment {
+    display: block;
+}
+
+.down {
+    background: url("/img/arrows.png") no-repeat 17px -110px;
+    width: 50px;
+    height: 35px
+}
+
+.down:hover {
+    background-position: 17px -74px;
+}
+
+.up {
+    background: url("/img/arrows.png") no-repeat 17px 12px;
+    width: 50px;
+    height: 35px
+}
+
+.up:hover {
+    background-position: 17px -27px;
+}
+
+.vote {
+    display: inline-block;
+    text-align: center;
+    font-size: 1.6em;
+}
+
+.vote a {
+    display: block;
+}
+
+#wrapper {
+    font-family: Helvetica, Arial, sans-serif;
+}
