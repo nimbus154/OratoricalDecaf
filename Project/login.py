@@ -11,3 +11,9 @@ class LoginPage(webapp.RequestHandler):
 			self.redirect('/')
 		else:
 			self.redirect(users.create_login_url("/"))
+
+class LogoutPage(webapp.RequestHandler):
+    def get(self):
+        self.redirect(users.create_logout_url("/"))
+
+
