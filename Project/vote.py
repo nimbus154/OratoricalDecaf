@@ -21,9 +21,9 @@ class RequestHandler(webapp2.RequestHandler):
         if(user):
             vote = self.extract_vote(self.request.body)
             if(self.is_valid_vote(vote)):
-                votes = datastore.Vote_Article(
-                                                           user.email(),article_id, 
-                                        RequestHandler.vote_types[vote["vote"]])
+                votes = datastore.vote_article(article_id,
+                                        RequestHandler.vote_types[vote["vote"]],
+                                        user)
                 self.response.headers["Content-Type"] = "application/json"
                 self.response.write(json.dumps({"article": article_id, 
                                                 "votes": votes}))
@@ -50,5 +50,5 @@ class RequestHandler(webapp2.RequestHandler):
             try:
                 return json.loads(self.request.body)
             except json.JSONDecodeError: # unable to parse json
-                return {"no": "deserialize"}
+                return {}
 

@@ -1,4 +1,5 @@
 import datetime
+import logging
 from google.appengine.ext import db
 from google.appengine.api import users
 
@@ -8,20 +9,21 @@ from google.appengine.api import users
 class Articles(db.Model):
 	link = db.LinkProperty()
 	text = db.StringProperty()
-	votes = db.IntegerProperty()
-	posted = db.DateTimeProperty()
+	votes = db.IntegerProperty(default=0)
+	posted = db.DateTimeProperty(auto_now_add=True)
 	owner = db.StringProperty()
 
 class Votes(db.Model):
-	article_id = db.IntegerProperty()
-	users = db.ListProperty(db.Email)
-
+	voter = db.EmailProperty()
 
 class Comments(db.Model):
 	article_id = db.IntegerProperty()
 	comment_owner = db.EmailProperty()
 	comment_text = db.StringProperty()
 	posted = db.DateTimeProperty()
+
+def article_list_key():
+    return db.Key.from_path('ArticleList', 'default_list')
 
 '''
 	DATASTORE FUNCTIONS
@@ -37,16 +39,15 @@ class Comments(db.Model):
 		required:
 			None
 '''
-def Post_Article(link,text,owner):
-	article_info = Articles()
+def post_article(link,text,owner):
+	article_info = Articles(parent=article_list_key())
 
-	#set the article data
+	# set the article data
 	article_info.link = link
 	article_info.text = text
 	article_info.votes = 0
-	article_info.posted = datetime.datetime.now()
 	article_info.owner = owner
-	#store it!
+	# store it!
 	article_info.put()
 
 '''
@@ -63,10 +64,12 @@ def Post_Article(link,text,owner):
 		required:
 			None
 '''
-def Get_Articles():
+def get_articles():
 	articles = []
 	result = []
-	for i in Articles.all().order('-posted'):
+
+    # sort by date posted, then by number of votes
+	for i in Articles.all().ancestor(article_list_key()).order('-posted'):
 		result = [i.key().id(),i.link,i.text,i.votes]
 		articles.append(result)
 	return(articles)
@@ -83,8 +86,8 @@ def Get_Articles():
 		required:
 			None
 '''
-def Post_Comment(article_id,commentor,comment_text):
-	#note that article_id is actually an entity id which can be pulled when we load the comments
+def post_comment(article_id,commentor,comment_text):
+	# note that article_id is actually an entity id which can be pulled when we load the comments
 	new_comment = Comments(Articles().get_by_id(ids = article_id).key())
 	
 	#setup the comment data
@@ -95,50 +98,54 @@ def Post_Comment(article_id,commentor,comment_text):
 	new_comment.put()
 
 '''
+	Function: has_already_voted
+	Checks if a user has already voted for an article
+	Properties:
+		input:
+            user - user to check
+            article - article to check
+		output:
+            true if user has already voted
+
+'''
+def has_already_voted(user, article):
+	# retrieve all votes for an article
+	past_votes = Votes.all().ancestor(article.key())
+
+	return not(past_votes is None \
+		or past_votes.filter("voter =", user.email()).count() == 0)
+
+'''
 	Function: Article Vote
 	Properties:
 		input:
-
+            article_id - id of article for which to vote
+            vote - 1 (up), -1 (down)
+            user - user who cast vote (GAE user object)
 		output:
-
-		required:
+            updated number of votes for article
 
 '''
-def Vote_Article(username,article_id,vote):
-	'''
-		note, vote can only be -1 or 1, 0 IS NOT acceptable
-		also note this is a two prong function, we must make sure the user has not voted prior; if they have not voted than
-		we must add the vote to the Articles() table and then also add an entry to the Votes() table.
-	'''
-	new_vote = Votes().all().filter("article_id =",int(article_id))
-	#we should always have an article that matches its ID, if not than we are in serious trouble!
-	article_add_vote = Articles().get_by_id(ids = int(article_id))
-	email_address = db.Email(username)
+def vote_article(article_id, vote, user):
+	if vote != 1 and vote != -1:
+		raise TypeError("Vote must be 1 or -1")
 
-	#make sure the votes for this article exist, if not create a new entry for them.
-	if new_vote.get() is None:
-		#WARNING: we are redefining new_vote!
-		new_vote = Votes(Articles().get_by_id(ids = int(article_id)).key())
-		new_vote.article_id = int(article_id)
-		new_vote.users = [email_address]
-		
-		article_add_vote.votes = int(vote)
-		#add the vote to the article first
-		article_add_vote.put()
-		#now add the votes entity
+    # Retrieve parent article from db, so it can be vote's ancestor
+	article = Articles.get_by_id(int(article_id), article_list_key())
+
+	if article is None: 
+		# article not found, can't proceed
+		raise LookupError("Article not found")
+
+	if not has_already_voted(user, article):
+		# Cast vote
+		new_vote = Votes(article.key())
+		new_vote.voter = user.email()
+
+		# update vote total
+		article.votes += vote
+		article.put()
+
+		# save voter info to prevent double-voting
 		new_vote.put()
-		return
-	else:
-		#check to see if we have already voted for this article!
-		already_voted = Votes.all().filter("article_id =",article_id).filter("users in",[email_address]).get()
-		if already_voted is None:
-			return 1
-		
-		new_vote = Votes().all().filter("article_id =",int(article_id)).get()
-		new_vote = Votes(Articles().get_by_id(ids = int(article_id)).key()).get_by_id(ids = new_vote.key().id())
-		new_vote.users.append(email_address)
-		
-		article_add_vote.votes = int(article_add_vote.votes) + int(vote)
-				
-		new_vote.put()
-		article_add_vote.put()
+	return article.votes
