@@ -75,6 +75,25 @@ def get_articles():
 	return(articles)
 
 '''
+	Function: Retrieves requested article from datastore
+	Input:
+		id - id of article to retrieve
+	Output:
+		article with requested id
+	Raises:
+		LookupError when no article with requested id is found
+'''
+def get_article(id):
+    # Retrieve parent article from db, so it can be vote's ancestor
+	article = Articles.get_by_id(int(id), article_list_key())
+
+	if article is None: 
+		# article not found, can't proceed
+		raise LookupError("Article not found")
+
+	return article
+
+'''
 	Function: Post Comment
 	Properties:
 		input:
@@ -131,11 +150,7 @@ def vote_article(article_id, vote, user):
 		raise TypeError("Vote must be 1 or -1")
 
     # Retrieve parent article from db, so it can be vote's ancestor
-	article = Articles.get_by_id(int(article_id), article_list_key())
-
-	if article is None: 
-		# article not found, can't proceed
-		raise LookupError("Article not found")
+	article = get_article(article_id)
 
 	if not has_already_voted(user, article):
 		# Cast vote
