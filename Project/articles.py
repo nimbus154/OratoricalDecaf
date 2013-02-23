@@ -39,5 +39,5 @@ class PostPage(webapp2.RequestHandler):
         user_link_url = self.request.get('link_url')
         user_link_title = self.request.get('link_title')
         user_name = user.nickname()
-        datastore.Post_Article(user_link_url,user_link_title,user_name)
+        datastore.post_article(user_link_url,user_link_title,user_name)
         self.redirect("/")
