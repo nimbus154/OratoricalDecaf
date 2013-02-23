@@ -7,38 +7,13 @@ a:hover {
     color: #FA6800;
 }
 
-.article {
-    display: inline;
-    position: absolute;
-    top: 25px;
-    margin-left: 20px;
-}
-
-.article-title {
-    font-size: 2em;
-}
-
-.article-widget {
-    position: relative;
-    margin-bottom: 10px;
-}
-
 body {
     background: url("/img/maze_white.png")
 }
 
-.comment {
+textarea {
     display: block;
-}
-
-.down {
-    background: url("/img/arrows.png") no-repeat 17px -110px;
-    width: 50px;
-    height: 35px
-}
-
-.down:hover {
-    background-position: 17px -74px;
+    margin-bottom: 15px;
 }
 
 nav {
@@ -66,6 +41,40 @@ nav a {
     color: #ccc;
 }
 
+#wrapper {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.article {
+    display: inline;
+    position: absolute;
+    top: 25px;
+    margin-left: 20px;
+}
+
+.article-title {
+    font-size: 2em;
+}
+
+.article-widget {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.comment {
+    display: block;
+}
+
+.down {
+    background: url("/img/arrows.png") no-repeat 17px -110px;
+    width: 50px;
+    height: 35px
+}
+
+.down:hover {
+    background-position: 17px -74px;
+}
+
 .up {
     background: url("/img/arrows.png") no-repeat 17px 12px;
     width: 50px;
@@ -84,8 +93,4 @@ nav a {
 
 .vote a {
     display: block;
-}
-
-#wrapper {
-    font-family: Helvetica, Arial, sans-serif;
 }

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content -%}
+    <h1>Post an Article</h1>
+    <form method="post">
+        <label for="link_title">Title:</label>
+        <textarea name="link_title" 
+            placeholder="A witty title to grab visitors' attention" 
+            rows="2" 
+            cols="60">{{ title|e }}</textarea>
+        <label for="link_url">Location/URL:</label>
+        <textarea name="link_url" 
+            placeholder="Link to the article you'd like to share"
+            rows="2" 
+            cols="60">{{ url|e }}</textarea>
+        <input type="submit" value="Post">
+    </form>
+    {% if error -%}
+    <span class="error">
+        There was a problem with your post: {{ error|e}}
+    </span>
+    {%- endif %}
+{%- endblock %}
