@@ -9,11 +9,10 @@ from google.appengine.api import users
 
 class RequestHandler(webapp2.RequestHandler):
   def get(self, article_id):
-        self.response.out.write('<html><body>')
-
+	self.response.out.write('<html><body>')
         #article_key = self.request.get('article_key')
 
-	my_article = datastore.Articles().get_by_id(ids = int(article_id))
+	my_article = datastore.get_article(article_id)
 	article_name = my_article.text
 
 	#user login check
