@@ -12,13 +12,16 @@
     <body>
         <div id="wrapper">
             <nav>
-            {% block nav %}
-                {% if user %}
-                    {% include 'logged_in_nav.html' %}
-                {% else %}
-                    {% include 'not_logged_in_nav.html' %}
-                {% endif %}
-            {% endblock %}
+                <ul>
+                    <li><a href="/">Home</a></li>
+                {% block nav %}
+                    {% if user %}
+                        {% include 'logged_in_nav.html' %}
+                    {% else %}
+                        {% include 'not_logged_in_nav.html' %}
+                    {% endif %}
+                {% endblock %}
+                </ul>
             </nav>
             <div id="content">
                 {% block content %}
