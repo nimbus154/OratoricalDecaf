@@ -113,7 +113,7 @@ def post_comment(article_id,commentor,comment_text):
 
 def get_comments(article_id):
 	article = get_article(article_id)
-	return Comments.all().ancestor(article.key()).order('posted')
+	return Comments.all().ancestor(article.key()).order('-posted')
 
 '''
 	Function: Article Vote

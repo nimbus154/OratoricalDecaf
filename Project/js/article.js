@@ -1,7 +1,7 @@
 var app = app || {}; // application namespace
 
 app.isValidUrl = function(url) {
-    return url.match(/^http:\/\//i);
+    return url.match(/^https?:\/\//i);
 };
 
 /**
