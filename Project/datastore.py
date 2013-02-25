@@ -122,7 +122,8 @@ def get_article(id):
 '''
 def post_comment(article_id,commentor,comment_text):
 	# note that article_id is actually an entity id which can be pulled when we load the comments
-	new_comment = Comments(Articles().get_by_id(ids = article_id).key())
+	article = get_article(article_id)
+	new_comment = Comments(article.key())
 	
 	#setup the comment data
 	new_comment.article_id = article_id
