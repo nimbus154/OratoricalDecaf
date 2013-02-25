@@ -16,7 +16,13 @@ app.vote = function(articleId, vote) {
             var voteCount = $("#" + data.article + ".vote .count");
             // set new vote count
             voteCount.text(data.votes);
-        });
+		})
+		.fail(function(data, textStatus, jqXHR){
+			// if not logged in, redirect to login
+			if(data.status === 401) {
+				window.location.href="/login"
+			}
+		});
 }
 
 /**
