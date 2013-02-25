@@ -5,7 +5,7 @@
             <a href="{{article.link|e}}" target="_blank">{{article.text|e}}</a>
         </span>
 		<div class="details">
-            <a href="/comment/{{article.key().id()}}">Comments</a>
+            <a href="/comment/{{article.key().id()|e}}">Comments</a>
 			<span>
 				{{ article.owner|e }} {{ article.time_since_post()|e}}
 			</span>

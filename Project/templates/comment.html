@@ -1,6 +1,6 @@
 <div class="comment">
 	<span class="commenter">
-		{{ comment.comment_owner|e }} wrote ({{ comment.time_since_post() }}):
+		{{ comment.comment_owner|e }} wrote ({{ comment.time_since_post()|e }}):
 	</span>
     <blockquote>
         {{ comment.comment_text|e }}

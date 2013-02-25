@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1><a href="{{ article.link}}">{{ article.text|e }}</a></h1>
+<h1><a href="{{ article.link|e}}">{{ article.text|e }}</a></h1>
 <span class="details">{{ article.owner|e }} {{ article.time_since_post()|e}}</span>
 <p>Post your thoughts</p>
 <form method="post">
