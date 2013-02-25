@@ -2,10 +2,13 @@
     {% include 'vote.html' with context %}
     <div class="article">
         <span class="article-title">
-            <a href="{{article.1}}" target="_blank">{{article.2}}</a>
+            <a href="{{article.link|e}}" target="_blank">{{article.text|e}}</a>
         </span>
         <span class="comment">
-            <a href="/comment/{{article.0}}">Comments</a>
+            <a href="/comment/{{article.key().id()}}">Comments</a>
+        </span>
+        <span class="details">
+            Posted by {{ article.owner|e }} on {{ article.time_since_post() |e}}
         </span>
     </div>
 </div>

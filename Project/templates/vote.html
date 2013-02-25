@@ -1,5 +1,5 @@
-<div id="{{article.0}}" class="vote">
-    <a class="up" href="/vote/{{article.0}}"></a>
-    <span class="count">{{article.3}}</span>
-    <a class="down" href="/vote/{{article.0}}"></a>
+<div id="{{article.key().id()}}" class="vote">
+    <a class="up" href="/vote/{{article.key().id()}}"></a>
+    <span class="count">{{article.votes}}</span>
+    <a class="down" href="/vote/{{article.key().id()}}"></a>
 </div>

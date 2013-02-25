@@ -13,6 +13,21 @@ class Articles(db.Model):
 	posted = db.DateTimeProperty(auto_now_add=True)
 	owner = db.StringProperty()
 
+	def time_since_post(self):
+		# Print the time since a post
+		seconds_since = (datetime.datetime.now() - self.posted).total_seconds()
+
+		time_since = str()
+		if seconds_since / 3600 < 1: # less than an hour ago
+			time_since = "%d minute(s) ago" % (seconds_since / 60)
+		elif seconds_since / (3600 * 24)< 1: # less than a day ago
+			time_since = "%d hour(s) ago" % (seconds_since / 3600)
+		else:
+			time_since = "%d hour(s) ago" % (seconds_since / (3600 * 24))
+
+		return time_since
+
+
 class Votes(db.Model):
 	voter = db.EmailProperty()
 
@@ -65,14 +80,14 @@ def post_article(link,text,owner):
 			None
 '''
 def get_articles():
-	articles = []
-	result = []
-
     # sort by date posted, then by number of votes
-	for i in Articles.all().ancestor(article_list_key()).order('-posted'):
-		result = [i.key().id(),i.link,i.text,i.votes]
-		articles.append(result)
-	return(articles)
+	return rank(Articles.all().ancestor(article_list_key()))
+
+def rank(articles):
+	return sorted(articles, key=lambda article: score(article), reverse=True)
+
+def score(article):
+	return article.votes
 
 '''
 	Function: Retrieves requested article from datastore
