@@ -20,9 +20,4 @@ indexes:
   ancestor: yes
   properties:
   - name: posted
-
-- kind: Comments
-  ancestor: yes
-  properties:
-  - name: posted
     direction: desc
