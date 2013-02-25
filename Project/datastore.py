@@ -172,7 +172,7 @@ def time_since(time):
 		time = hours_since * 24
 		unit = "day"
 	
-	if time > 1:
+	if int(time) != 1:
 		unit = "%ss" % unit
 
 	return "%d %s ago" % (time, unit)
