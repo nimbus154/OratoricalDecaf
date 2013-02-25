@@ -9,7 +9,7 @@ templates = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR))
 
 # Pages
 article_post_page="post_article.html"
-comments_page="comments_list.html"
+comments_page="comment_list.html"
 main_page="article_list.html"
 
 main_title="Oratorical Decaf"

@@ -65,8 +65,16 @@ nav a {
     margin-bottom: 10px;
 }
 
-.comment {
+.comment .commenter {
+	font-size: 80%;
+}
+
+.details {
     display: block;
+}
+
+.details a {
+    font-weight: bold;
 }
 
 .down {

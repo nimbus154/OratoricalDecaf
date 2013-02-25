@@ -14,28 +14,18 @@ class Articles(db.Model):
 	owner = db.StringProperty()
 
 	def time_since_post(self):
-		# Print the time since a post
-		seconds_since = (datetime.datetime.now() - self.posted).total_seconds()
-
-		time_since = str()
-		if seconds_since / 3600 < 1: # less than an hour ago
-			time_since = "%d minute(s) ago" % (seconds_since / 60)
-		elif seconds_since / (3600 * 24)< 1: # less than a day ago
-			time_since = "%d hour(s) ago" % (seconds_since / 3600)
-		else:
-			time_since = "%d hour(s) ago" % (seconds_since / (3600 * 24))
-
-		return time_since
-
+		return time_since(self.posted)
 
 class Votes(db.Model):
 	voter = db.EmailProperty()
 
 class Comments(db.Model):
-	article_id = db.IntegerProperty()
-	comment_owner = db.EmailProperty()
+	comment_owner = db.StringProperty()
 	comment_text = db.StringProperty()
 	posted = db.DateTimeProperty()
+
+	def time_since_post(self):
+		return time_since(self.posted)
 
 def article_list_key():
     return db.Key.from_path('ArticleList', 'default_list')
@@ -71,23 +61,13 @@ def post_article(link,text,owner):
 		input:
 			None
 		output:
-			Articles -> list
-				[0] = database index id
-				[1] = article link (URL)
-				[2] = article text
-				[3] = article vote amount
+			list of articles, ranked according to ranking algorithm
 		required:
 			None
 '''
 def get_articles():
     # sort by date posted, then by number of votes
 	return rank(Articles.all().ancestor(article_list_key()))
-
-def rank(articles):
-	return sorted(articles, key=lambda article: score(article), reverse=True)
-
-def score(article):
-	return article.votes
 
 '''
 	Function: Retrieves requested article from datastore
@@ -126,29 +106,14 @@ def post_comment(article_id,commentor,comment_text):
 	new_comment = Comments(article.key())
 	
 	#setup the comment data
-	new_comment.article_id = article_id
 	new_comment.comment_owner = commentor
 	new_comment.comment_text = comment_text
 	new_comment.posted = datetime.datetime.now()
 	new_comment.put()
 
-'''
-	Function: has_already_voted
-	Checks if a user has already voted for an article
-	Properties:
-		input:
-            user - user to check
-            article - article to check
-		output:
-            true if user has already voted
-
-'''
-def has_already_voted(user, article):
-	# retrieve all votes for an article
-	past_votes = Votes.all().ancestor(article.key())
-
-	return not(past_votes is None \
-		or past_votes.filter("voter =", user.email()).count() == 0)
+def get_comments(article_id):
+	article = get_article(article_id)
+	return Comments.all().ancestor(article.key()).order('posted')
 
 '''
 	Function: Article Vote
@@ -180,3 +145,58 @@ def vote_article(article_id, vote, user):
 		# save voter info to prevent double-voting
 		new_vote.put()
 	return article.votes
+
+'''
+Helper Functions
+'''
+'''
+	Function: time_since
+		Calculates how many hours/minutes/days have passed since time.
+	input:
+		time - reference point
+	output:
+		formatted string "[amount of time] [unit(s)] ago" e.g. "4 days ago"
+	
+'''
+def time_since(time):
+	# Print the time since a post
+	hours_since = ((datetime.datetime.now() - time).total_seconds()) / 3600
+
+	if hours_since < 1:
+		time = hours_since * 60
+		unit = "minute"
+	elif hours_since < 24:
+		time = hours_since
+		unit = "hour"
+	else:
+		time = hours_since * 24
+		unit = "day"
+	
+	if time > 1:
+		unit = "%ss" % unit
+
+	return "%d %s ago" % (time, unit)
+
+'''
+	Function: has_already_voted
+	Checks if a user has already voted for an article
+	Properties:
+		input:
+            user - user to check
+            article - article to check
+		output:
+            true if user has already voted
+'''
+def has_already_voted(user, article):
+	# retrieve all votes for an article
+	past_votes = Votes.all().ancestor(article.key())
+
+	return not(past_votes is None \
+		or past_votes.filter("voter =", user.email()).count() == 0)
+
+def rank(articles):
+	return sorted(articles, key=lambda article: score(article), reverse=True)
+
+def score(article):
+	return article.votes
+
