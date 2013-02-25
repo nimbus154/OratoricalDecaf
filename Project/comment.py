@@ -27,12 +27,12 @@ class RequestHandler(webapp2.RequestHandler):
 	def post(self, article_id):
 		#user login check
 		user = users.get_current_user()
+		comment_text = self.request.get('comment_text')
+
 		if not user:
 			self.redirect(users.create_login_url(self.request.uri))
-
-		comment_text = self.request.get('comment_text')
-		datastore.post_comment(article_id,
-							users.get_current_user().nickname(),
-							cgi.escape(comment_text))
-
-		self.redirect('/comment/%s'% (article_id))
+                else:
+			datastore.post_comment(article_id,
+										users.get_current_user().nickname(),
+										cgi.escape(comment_text))
+			self.redirect('/comment/%s'% (article_id))
