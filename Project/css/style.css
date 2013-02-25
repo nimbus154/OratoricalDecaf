@@ -69,12 +69,12 @@ nav a {
 	font-size: 80%;
 }
 
-.details {
-    display: block;
-}
-
 .details a {
     font-weight: bold;
+}
+
+.details span {
+    font-size: 80%;
 }
 
 .down {
