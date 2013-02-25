@@ -19,7 +19,7 @@ class RequestHandler(webapp2.RequestHandler):
 		# comment submission form
 		self.response.write(template.render(
 			{
-				"article_name": article.text,
+				"article": article,
 				"comments": comment_list, 
 				"user": users.get_current_user()
 			}))

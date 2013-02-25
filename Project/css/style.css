@@ -68,12 +68,12 @@ nav a {
 	font-size: 80%;
 }
 
-.details a {
-    font-weight: bold;
+.details {
+    font-size: 80%;
 }
 
-.details span {
-    font-size: 80%;
+.details a {
+    font-weight: bold;
 }
 
 .down {

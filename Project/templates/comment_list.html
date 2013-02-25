@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>{{ article_name|e }}</h1>
-<p>Post your thoughts!</p>
+<h1><a href="{{ article.link}}">{{ article.text|e }}</a></h1>
+<span class="details">{{ article.owner|e }} {{ article.time_since_post()|e}}</span>
+<p>Post your thoughts</p>
 <form method="post">
     <textarea name="comment_text" rows="3" cols="60"></textarea>
     <input type="submit" value="Post">
