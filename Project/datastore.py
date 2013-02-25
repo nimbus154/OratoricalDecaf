@@ -160,22 +160,31 @@ Helper Functions
 '''
 def time_since(time):
 	# Print the time since a post
-	hours_since = ((datetime.datetime.now() - time).total_seconds()) / 3600
+	hours = hours_since(time)
 
-	if hours_since < 1:
-		time = hours_since * 60
+	if hours < 1:
+		time = hours * 60
 		unit = "minute"
-	elif hours_since < 24:
-		time = hours_since
+	elif hours < 24:
+		time = hours
 		unit = "hour"
 	else:
-		time = hours_since * 24
+		time = hours * 24
 		unit = "day"
 	
 	if int(time) != 1:
 		unit = "%ss" % unit
 
 	return "%d %s ago" % (time, unit)
+'''
+	Function: hours since
+	input:
+		time - time of an event
+	output:
+		number of hours since that event
+'''
+def hours_since(time):
+	return ((datetime.datetime.now() - time).total_seconds()) / 3600
 
 '''
 	Function: has_already_voted
@@ -194,9 +203,27 @@ def has_already_voted(user, article):
 	return not(past_votes is None \
 		or past_votes.filter("voter =", user.email()).count() == 0)
 
+'''
+	Function: Ranks articles for display
+	input:
+		a list of articles
+	output:
+		the list of articles sorted by a scoring algorithm
+'''
 def rank(articles):
 	return sorted(articles, key=lambda article: score(article), reverse=True)
 
+'''
+	Function: calculate the overall score for an article
+	input:
+		an article
+	output:
+		the overall score for an article
+'''
 def score(article):
-	return article.votes
+	# This ranking algorithm is almost a direct rip-off of 
+	# the Hacker News algorithm as explained here:
+	# http://amix.dk/blog/post/19574 
+	hours_since_post = hours_since(article.posted)
+	return (article.votes) / pow(hours_since_post + 2, 1.8)
 
