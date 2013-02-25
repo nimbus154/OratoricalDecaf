@@ -4,7 +4,7 @@
 import webapp2
 from google.appengine.api import users
 import datastore
-import simplejson as json
+import json
 import logging
 
 class RequestHandler(webapp2.RequestHandler):

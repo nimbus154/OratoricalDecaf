@@ -15,9 +15,12 @@ indexes:
   properties:
   - name: posted
     direction: desc
+<<<<<<< HEAD
 
 - kind: Comments
   ancestor: yes
   properties:
   - name: posted
     direction: desc
+=======
+>>>>>>> 2726b8a3e2bcf07ec08de3844fe8d518d859d719
