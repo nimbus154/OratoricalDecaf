@@ -51,10 +51,7 @@ nav a {
 }
 
 .article {
-    display: inline;
-    position: absolute;
-    top: 25px;
-    margin-left: 20px;
+    padding-top: 25px;
 }
 
 .article-title {
@@ -64,6 +61,7 @@ nav a {
 .article-widget {
     position: relative;
     margin-bottom: 10px;
+    clear: both;
 }
 
 .comment .commenter {
@@ -103,9 +101,10 @@ nav a {
 }
 
 .vote {
-    display: inline-block;
+    display: block;
     text-align: center;
     font-size: 1.6em;
+    float: left;
 }
 
 .vote a {
