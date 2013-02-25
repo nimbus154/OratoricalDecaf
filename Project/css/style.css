@@ -87,6 +87,10 @@ nav a {
     background-position: 17px -74px;
 }
 
+.error {
+    color: red;
+}
+
 .up {
     background: url("/img/arrows.png") no-repeat 17px 12px;
     width: 50px;

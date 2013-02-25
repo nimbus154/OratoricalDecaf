@@ -1,7 +1,10 @@
 {% extends "base.html" %}
+{% block scripts %}
+    <script src="/js/article.js"></script>
+{% endblock %}
 {% block content -%}
     <h1>Post an Article</h1>
-    <form method="post">
+    <form id="post-article" method="post">
         <label for="link_title">Title:</label>
         <textarea name="link_title" 
             placeholder="A witty title to grab visitors' attention" 
@@ -14,9 +17,9 @@
             cols="60">{{ url|e }}</textarea>
         <input type="submit" value="Post">
     </form>
-    {% if error -%}
     <span class="error">
-        There was a problem with your post: {{ error|e}}
-    </span>
+    {% if error -%}
+        There was a problem with your post: {{ error|e }}
     {%- endif %}
+    </span>
 {%- endblock %}
