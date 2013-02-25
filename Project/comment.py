@@ -10,9 +10,10 @@ from google.appengine.api import users
 class RequestHandler(webapp2.RequestHandler):
   def get(self, article_id):
 	self.response.out.write('<html><body>')
-        #article_key = self.request.get('article_key')
 
 	my_article = datastore.get_article(article_id)
+	article_key = my_article.key()
+
 	article_name = my_article.text
 
 	#user login check
@@ -25,7 +26,8 @@ class RequestHandler(webapp2.RequestHandler):
 	self.response.out.write('<br><a href="/">Back</a>')
 
 	#comment query
-	comment_list = datastore.Comments().all().filter("article_id =",int(article_id))
+        comment_list = datastore.Comments.gql("WHERE ANCESTOR IS :1 ORDER BY posted DESC LIMIT 10",
+                                                                                                    article_key)
 
 	#comment submission form
 	self.response.out.write("""
@@ -43,8 +45,7 @@ class RequestHandler(webapp2.RequestHandler):
         self.response.out.write("""</body></html>"""  )
 
   def post(self, article_id):
-
 	comment_text = self.request.get('comment_text')
-	datastore.Post_Comment(int(article_id),users.get_current_user().email(),cgi.escape(comment_text))
+	datastore.post_comment(int(article_id),users.get_current_user().email(),cgi.escape(comment_text))
 
         self.redirect('/comment/%s'% (article_id))
