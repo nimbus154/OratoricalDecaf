@@ -7,6 +7,9 @@ import os
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 templates = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR))
 
-main_page="article_list.html"
+# Pages
 article_post_page="post_article.html"
+comments_page="comments_list.html"
+main_page="article_list.html"
+
 main_title="Oratorical Decaf"

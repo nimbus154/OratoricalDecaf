@@ -1,0 +1,12 @@
+{% extends 'base.html' }
+{% block content %}
+<h1>{{ article_name }}</h1>
+<p>Post your thoughts!</p>
+<form method="post">
+    <textarea name="comment_text" rows="3" cols="60"></textarea>
+    <input type="submit" value="Post">
+</form>
+    {% for comment in comments %}
+        {% include 'comment.html' %}
+    {% endfor %}
+{% endblock %}
