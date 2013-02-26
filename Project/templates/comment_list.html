@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1><a href="{{ article.link|e}}">{{ article.text|e }}</a></h1>
-<span class="details">{{ article.owner|e }} {{ article.time_since_post()|e}}</span>
+<div class="article-heading">
+    <h1><a href="{{ article.link|e}}">{{ article.text|e }}</a></h1>
+    <span class="details">{{ article.owner|e }} {{ article.time_since_post()|e}}</span>
+</div>
 <form method="post">
     <textarea name="comment_text" 
         placeholder="Post your thoughts"

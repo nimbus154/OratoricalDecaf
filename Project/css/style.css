@@ -54,6 +54,14 @@ nav a {
     padding-top: 25px;
 }
 
+.article-heading {
+    margin-bottom: 20px;
+}
+
+.article-heading h1 {
+    margin-bottom: 0;
+}
+
 .article-title {
     font-size: 2em;
 }
