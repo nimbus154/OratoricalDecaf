@@ -4,6 +4,8 @@ OratoricalDecaf
 Social news voting site built on the Google Apps Engine
 
 ## File Description
+*  **data_model.jpg** - diagram of hierarchical data relationships
+*  **data_model.vsd** - Visio document from which jpg was created
 *  **tables.jpg** - diagram of database tables and domain objects
 *  **tables.vsd** - Visio document from which jpg was created
 *  **features.md** - list of features to implement
@@ -15,8 +17,8 @@ Social news voting site built on the Google Apps Engine
 * [Git Markdown Quick Reference](http://nestacms.com/docs/creating-content/markdown-cheat-sheet)
 
 ## Contributors
-* Chad Wyszynski
 * Jeremy Chavez
 * Joseph Blessum
 * Kurtis Schlepp
+* Chad Wyszynski
 * Robert Cabral
