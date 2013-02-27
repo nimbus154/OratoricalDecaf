@@ -21,7 +21,7 @@ class Votes(db.Model):
 
 class Comments(db.Model):
 	comment_owner = db.StringProperty()
-	comment_text = db.StringProperty(multiline=True)
+	comment_text = db.TextProperty()
 	posted = db.DateTimeProperty()
 
 	def time_since_post(self):
