@@ -21,7 +21,7 @@ class Votes(db.Model):
 
 class Comments(db.Model):
 	comment_owner = db.StringProperty()
-	comment_text = db.StringProperty()
+	comment_text = db.StringProperty(multiline=True)
 	posted = db.DateTimeProperty()
 
 	def time_since_post(self):
@@ -115,8 +115,7 @@ def get_comments(article_id):
 	article = get_article(article_id)
 	return Comments.all().ancestor(article.key()).order('-posted')
 
-'''
-	Function: Article Vote
+''' Function: Article Vote
 	Properties:
 		input:
             article_id - id of article for which to vote
@@ -169,7 +168,7 @@ def time_since(time):
 		time = hours
 		unit = "hour"
 	else:
-		time = hours * 24
+		time = hours / 24
 		unit = "day"
 	
 	if int(time) != 1:
